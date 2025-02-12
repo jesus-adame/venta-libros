@@ -27,7 +27,7 @@ const submit = () => {
 
         <Head title="Register" />
 
-        <div class="flex flex-col items-center sm:justify-center sm:pt-6">
+        <div class="flex flex-col items-center sm:justify-center pb-24 sm:pt-6">
             <h1 class="mt-4 text-2xl">Registrarse</h1>
 
             <div class="mt-6 w-full overflow-hidden bg-gray-200 px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg">

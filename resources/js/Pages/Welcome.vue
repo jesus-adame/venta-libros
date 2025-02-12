@@ -2,6 +2,7 @@
 import MainBanner from '@/Components/MainBanner.vue';
 import { Head } from '@inertiajs/vue3';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
+import TopBooks from '@/modules/books/TopBooks.vue';
 </script>
 
 <template>
@@ -12,5 +13,7 @@ import GuestLayout from '@/Layouts/GuestLayout.vue';
         <div>
             <MainBanner />
         </div>
+
+        <TopBooks />
     </GuestLayout>
 </template>

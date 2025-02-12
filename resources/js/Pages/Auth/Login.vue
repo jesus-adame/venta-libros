@@ -33,7 +33,7 @@ const submit = () => {
 
         <Head title="Log in" />
 
-        <div class="flex flex-col items-center sm:justify-center sm:pt-6">
+        <div class="flex flex-col items-center mb-24 sm:justify-center sm:pt-6">
 
             <h1 class="mt-4 text-2xl">Iniciar sesión</h1>
 
