@@ -15,12 +15,12 @@ const routerLinks = [
     },
     {
         label: 'Libros',
-        to: '/books',
+        to: '/libros',
         routeName: 'books.index'
     },
     {
         label: 'Categorías',
-        to: '/categories',
+        to: '/categorias',
         routeName: 'categories.index'
     },
 ]
