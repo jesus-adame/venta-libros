@@ -12,9 +12,11 @@ Route::inertia('/', 'Welcome')->name('home');
 
 // Rutas al público en general
 Route::name('public.')->group(function () {
-    Route::get('/libros',       [BookController::class, 'indexPage'])->name('books.index.page');
-    Route::get('/books',        [BookController::class, 'index'])->name('books.index');
-    Route::get('/categorias',   [CategoryController::class, 'index'])->name('categorias.index');
+    Route::get('/libros',            [BookController::class, 'indexPage'])->name('books.index.page');
+    Route::get('/libros/{book}',     [BookController::class, 'showPage'])->name('books.showPage');
+    Route::get('/books/{book}',      [BookController::class, 'show'])->name('books.show');
+    Route::get('/books',             [BookController::class, 'index'])->name('books.index');
+    Route::get('/categorias',        [CategoryController::class, 'index'])->name('categorias.index');
     Route::get('/covers/{fileName}', CoverImageStreamController::class)->name('image');
 });
 

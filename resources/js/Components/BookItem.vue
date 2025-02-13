@@ -1,8 +1,22 @@
 <script setup lang="ts">
 import { dateFormat } from '@/helpers/dateUtil';
 import PrimaryButton from './PrimaryButton.vue';
+import { router } from '@inertiajs/vue3';
 
 const { book } = defineProps(['book'])
+
+const slugify = (text: string) => {
+    return text
+        .toLowerCase() // Convertir a minúsculas
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Eliminar tildes
+        .replace(/[^a-z0-9 ]/g, "") // Remover caracteres especiales excepto espacios
+        .trim()
+        .replace(/\s+/g, "-"); // Reemplazar espacios por guiones
+};
+
+const goToDetails = () => {
+    router.visit('/libros/' + slugify(book.name))
+}
 </script>
 
 <template>
@@ -23,7 +37,7 @@ const { book } = defineProps(['book'])
                 <span>${{ book.price }}</span>
             </div>
             <div class="text-center">
-                <PrimaryButton class="text-center">Ver detalles</PrimaryButton>
+                <PrimaryButton @click="goToDetails" class="text-center">Ver detalles</PrimaryButton>
             </div>
         </div>
     </div>
