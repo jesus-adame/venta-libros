@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import FileInput from '@/Components/FileInput.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import MainContainer from '@/Components/MainContainer.vue';
 import NumberInput from '@/Components/NumberInput.vue';
@@ -9,23 +10,40 @@ import { Head, router } from '@inertiajs/vue3';
 import axios from 'axios';
 import { ref } from 'vue';
 
-const form = ref({
+const form = ref<{
+    name: string,
+    description: string,
+    price: number | null,
+    image: File | null,
+    processing: boolean
+}>({
     name: '',
     description: '',
     price: 0,
+    image: null,
     processing: false
 })
+
+const requestOptions = {
+    headers: {
+        'Content-Type': 'multipart/form-data'
+    }
+}
 
 const errors = ref()
 
 const createBook = () => {
-    axios.post('/backoffice/books', form.value)
+    axios.post('/backoffice/books', form.value, requestOptions)
         .then(response => {
             router.visit('/backoffice/dashboard')
         })
         .catch(error => {
             errors.value = error.response.data
         })
+}
+
+const onFileChanged = (file: File) => {
+    form.value.image = file;
 }
 
 </script>
@@ -63,14 +81,14 @@ const createBook = () => {
 
                         <div class="mt-1">
                             <InputLabel for="image" value="Portada" />
-                            <input type="file">
+                            <FileInput @change="onFileChanged"></FileInput>
                         </div>
 
                         <div v-if="errors" class="py-4 text-red-700">
                             {{ errors.message }}
                         </div>
 
-                        <PrimaryButton class="mt-4" :class="{ 'opacity-25': form.processing }"
+                        <PrimaryButton class="mt-2" :class="{ 'opacity-25': form.processing }"
                             :disabled="form.processing">
                             Registrar
                         </PrimaryButton>

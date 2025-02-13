@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backoffice\BookController as BackofficeBookController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CoverImageStreamController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,7 @@ Route::name('public.')->group(function () {
     Route::get('/libros',       [BookController::class, 'indexPage'])->name('books.index.page');
     Route::get('/books',        [BookController::class, 'index'])->name('books.index');
     Route::get('/categorias',   [CategoryController::class, 'index'])->name('categorias.index');
+    Route::get('/covers/{fileName}', CoverImageStreamController::class)->name('image');
 });
 
 // Rutas de usuarios autenticados

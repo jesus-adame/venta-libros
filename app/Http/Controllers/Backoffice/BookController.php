@@ -7,6 +7,8 @@ use App\Http\Requests\CreateBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class BookController extends Controller
@@ -26,7 +28,7 @@ class BookController extends Controller
             $query->limit($limit);
         }
 
-        $data = $query->get();
+        $data = $query->orderByDesc('created_at')->get();
 
         return response()->json([
             'data' => $data,
@@ -41,6 +43,16 @@ class BookController extends Controller
     public function store(CreateBookRequest $request)
     {
         $book = new Book($request->validated());
+
+        if ($request->file('image')) {
+            /** @var UploadedFile */
+            $image = $request->file('image');
+
+            $storedImage = Storage::put('covers', $image);
+
+            $book->image = $storedImage;
+        }
+
         $book->save();
 
         return response()->json([
@@ -68,6 +80,21 @@ class BookController extends Controller
 
         $book->update($request->validated());
 
+        if ($request->file('image')) {
+            if (! empty(Storage::get($book->image ?? null))) {
+                Storage::delete($book->image);
+            }
+
+            /** @var UploadedFile */
+            $image = $request->file('image');
+
+            $storedImage = Storage::put('covers', $image);
+
+            $book->image = $storedImage;
+        }
+
+        $book->save();
+
         return response()->json([
             'message' => 'Libro actualizado correctamente',
             'book' => $book,
@@ -79,6 +106,10 @@ class BookController extends Controller
         $book = Book::find($book);
 
         abort_if(is_null($book), 404);
+
+        if (! empty(Storage::get($book?->image ?? ''))) {
+            Storage::delete($book->image);
+        }
 
         $book->delete();
 

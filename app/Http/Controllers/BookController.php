@@ -23,7 +23,7 @@ class BookController extends Controller
             $query->limit($limit);
         }
 
-        $data = $query->get();
+        $data = $query->orderByDesc('created_at')->get();
 
         return response()->json([
             'data' => $data,

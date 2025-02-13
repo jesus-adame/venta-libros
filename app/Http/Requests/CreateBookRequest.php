@@ -25,6 +25,7 @@ class CreateBookRequest extends FormRequest
             'name' => ['required', 'string', 'unique:books,name'],
             'description' => ['required', 'string'],
             'price' => ['required', 'numeric'],
+            'image' => ['nullable', 'file', 'image'],
         ];
     }
 }

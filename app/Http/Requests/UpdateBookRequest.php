@@ -26,6 +26,7 @@ class UpdateBookRequest extends FormRequest
             'name' => ['required', 'string', Rule::unique('books')->ignore($this->id)],
             'description' => ['required', 'string'],
             'price' => ['required', 'numeric'],
+            'image' => ['nullable', 'file', 'image'],
         ];
     }
 }

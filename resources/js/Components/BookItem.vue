@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { dateFormat } from '@/helpers/dateUtil';
 import PrimaryButton from './PrimaryButton.vue';
 
 const { book } = defineProps(['book'])
@@ -6,12 +7,16 @@ const { book } = defineProps(['book'])
 
 <template>
     <div class="bg-white p-6 rounded-lg border">
-        <div class="h-44 bg-black">
-            <img src="#" alt="">
+        <div class="h-44 overflow-hidden">
+            <img v-if="book.image" :src="'/' + book.image" :alt="book.name">
+            <div v-else class="flex items-center justify-center border h-full bg-gray-100 text-gray-600">
+                <p>No hay imagen</p>
+            </div>
         </div>
         <div class="h-48 pt-4 flex flex-col justify-between gap-4">
             <div>
-                <h4 class="text-xl font-bold mb-2">{{ book.name }}</h4>
+                <h4 class="text-xl font-bold mb-1">{{ book.name }}</h4>
+                <p class="text-gray-600 mb-2 text-sm">{{ dateFormat(book.created_at) }}</p>
                 <p class="text-wrap truncate max-h-24">
                     {{ book.description }}
                 </p>
