@@ -30,6 +30,9 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Mis libros
                                 </NavLink>
+                                <NavLink :href="route('home')" :active="route().current('home')">
+                                    Ir al home
+                                </NavLink>
                             </div>
                         </div>
 
@@ -55,10 +58,10 @@ const showingNavigationDropdown = ref(false);
 
                                     <template #content>
                                         <DropdownLink :href="route('profile.edit')">
-                                            Profile
+                                            Perfil
                                         </DropdownLink>
                                         <DropdownLink :href="route('logout')" method="post" as="button">
-                                            Log Out
+                                            Cerrar sesión
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
