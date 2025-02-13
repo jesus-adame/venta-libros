@@ -17,12 +17,12 @@ const routerLinks = [
     {
         label: 'Libros',
         to: '/libros',
-        routeName: 'books.index'
+        routeName: 'public.books.index.page'
     },
     {
         label: 'Categorías',
         to: '/categorias',
-        routeName: 'categories.index'
+        routeName: 'public.categories.index.page'
     },
 ]
 

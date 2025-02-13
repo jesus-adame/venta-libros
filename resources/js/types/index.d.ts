@@ -19,6 +19,12 @@ export interface Book {
     created_at: string
 }
 
+export interface Category {
+    id: number
+    name: string
+    slug: string
+}
+
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {

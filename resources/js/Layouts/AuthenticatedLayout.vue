@@ -30,6 +30,10 @@ const showingNavigationDropdown = ref(false);
                                     :active="route().current('backoffice.dashboard')">
                                     Mis libros
                                 </NavLink>
+                                <NavLink :href="route('backoffice.categories.index.page')"
+                                    :active="route().current('backoffice.categories.index.page')">
+                                    Categorías
+                                </NavLink>
                                 <NavLink :href="route('home')" :active="route().current('home')">
                                     Ir al home
                                 </NavLink>

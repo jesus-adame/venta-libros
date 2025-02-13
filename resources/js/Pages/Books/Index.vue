@@ -30,7 +30,7 @@ onMounted(() => {
         <MainContainer>
             <h1 class="text-2xl font-bold uppercase py-6">Libros</h1>
 
-            <div v-if="books.length <= 0" class="text-lg">
+            <div v-if="books.length <= 0" class="text-lg pb-12">
                 <p>No hay libros para mostrar</p>
             </div>
 
