@@ -24,14 +24,22 @@ onMounted(() => {
         <Head title="Libros" />
 
         <MainContainer>
-            <div class="grid md:grid-cols-2 my-2 py-4">
+            <div class="grid md:grid-cols-2 my-2 py-4 gap-5">
                 <div class="flex justify-center">
-                    <img class="md:w-1/2" :src="'/' + book?.image" :alt="book?.name">
+                    <img v-if="book?.image" class="md:w-1/2" :src="'/' + book?.image" :alt="book?.name">
+                    <div
+                        class="bg-gray-200 rounded text-gray-600 border flex justify-center items-center h-full w-full">
+                        <p class="text-center">No hay imagen</p>
+                    </div>
                 </div>
-                <div class="py-4 px-5 ">
-                    <h1 class="text-2xl font-bold uppercase py-6">{{ book?.name }}</h1>
+                <div class="py-4 px-6 border rounded shadow">
+                    <h1 class="text-2xl font-bold uppercase pb-6">{{ book?.name }}</h1>
+                    <h4 class="font-bold">Autor</h4>
+                    <p>{{ book?.author }}</p>
                     <h4 class="font-bold">Description</h4>
                     <p class="mb-4">{{ book?.description }}</p>
+                    <h4 class="font-bold">Fecha</h4>
+                    <p class="mb-4">{{ book?.created_at }}</p>
                     <p class="font-bold">Precio</p>
                     <p class="text-4xl">$ {{ book?.price }}</p>
                 </div>

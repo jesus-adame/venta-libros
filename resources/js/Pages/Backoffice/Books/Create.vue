@@ -12,12 +12,14 @@ import { ref } from 'vue';
 
 const form = ref<{
     name: string,
+    author: string,
     description: string,
     price: number | null,
     image: File | null,
     processing: boolean
 }>({
     name: '',
+    author: '',
     description: '',
     price: 0,
     image: null,
@@ -68,6 +70,11 @@ const onFileChanged = (file: File) => {
 
                         <TextInput id="name" class="mt-1 block w-full" v-model="form.name" required autofocus
                             autocomplete="name" />
+
+                        <InputLabel for="author" value="Autor" />
+
+                        <TextInput id="author" class="mt-1 block w-full" v-model="form.author" required autofocus
+                            autocomplete="author" />
 
                         <InputLabel for="description" value="Descripción" />
 

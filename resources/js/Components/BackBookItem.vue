@@ -47,6 +47,9 @@ const gotToEdit = () => {
             <div>
                 <h4 @click="gotToEdit" class="text-xl font-bold mb-2 cursor-pointer">{{ book.name }}</h4>
                 <p class="text-wrap truncate max-h-24">
+                    {{ book.author }}
+                </p>
+                <p class="text-wrap truncate max-h-24">
                     {{ book.description }}
                 </p>
                 <span>${{ book.price }}</span>

@@ -15,7 +15,7 @@ class BookController extends Controller
 
     public function showPage(string $book)
     {
-        $book = Book::where('name', $this->unslugify($book))->first();
+        $book = Book::where('slug', $book)->first();
 
         abort_if(is_null($book), 404);
 

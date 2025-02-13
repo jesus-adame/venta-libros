@@ -15,6 +15,7 @@ const { book } = defineProps(['book'])
 
 const form = ref<{
     name: string,
+    author: string,
     description: string,
     price: number | null,
     image: File | null,
@@ -22,6 +23,7 @@ const form = ref<{
     _method: string
 }>({
     name: '',
+    author: '',
     description: '',
     price: 0,
     image: null,
@@ -83,12 +85,15 @@ onMounted(() => {
                         <TextInput id="name" class="mt-1 block w-full" v-model="form.name" required autofocus
                             autocomplete="name" />
 
+                        <InputLabel for="author" value="Autor" />
+
+                        <TextInput id="author" class="mt-1 block w-full" v-model="form.author" required autofocus
+                            autocomplete="author" />
 
                         <InputLabel for="description" value="Descripción" />
 
                         <TextInput id="description" class="mt-1 block w-full" v-model="form.description" required
                             autofocus autocomplete="description" />
-
 
                         <InputLabel for="price" value="Precio" />
 

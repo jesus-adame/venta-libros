@@ -5,17 +5,8 @@ import { router } from '@inertiajs/vue3';
 
 const { book } = defineProps(['book'])
 
-const slugify = (text: string) => {
-    return text
-        .toLowerCase() // Convertir a minúsculas
-        .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Eliminar tildes
-        .replace(/[^a-z0-9 ]/g, "") // Remover caracteres especiales excepto espacios
-        .trim()
-        .replace(/\s+/g, "-"); // Reemplazar espacios por guiones
-};
-
 const goToDetails = () => {
-    router.visit('/libros/' + slugify(book.name))
+    router.visit('/libros/' + book.slug)
 }
 </script>
 
@@ -27,14 +18,15 @@ const goToDetails = () => {
                 <p>No hay imagen</p>
             </div>
         </div>
-        <div class="h-48 pt-4 flex flex-col justify-between gap-4">
+        <div class="h-54 pt-4 flex flex-col justify-between gap-4">
             <div>
-                <h4 class="text-xl font-bold mb-1">{{ book.name }}</h4>
+                <h4 @click="goToDetails" class="text-xl font-bold mb-1 cursor-pointer">{{ book.name }}</h4>
                 <p class="text-gray-600 mb-2 text-sm">{{ dateFormat(book.created_at) }}</p>
-                <p class="text-wrap truncate max-h-24">
+                <p class="mb-2">Autor: {{ book.author }}</p>
+                <p class="text-wrap truncate max-h-24 mb-2">
                     {{ book.description }}
                 </p>
-                <span>${{ book.price }}</span>
+                <span class="text-xl">${{ book.price }}</span>
             </div>
             <div class="text-center">
                 <PrimaryButton @click="goToDetails" class="text-center">Ver detalles</PrimaryButton>

@@ -12,9 +12,11 @@ export interface Auth {
 export interface Book {
     id: number
     name: string
+    author: string
     description: string
     price: number
     image: string
+    created_at: string
 }
 
 export type PageProps<
