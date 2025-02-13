@@ -30,8 +30,12 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function create()
+    public function show(string $category)
     {
-        return Inertia::render('Backoffice/Categories/Create');
+        $category = Category::find($category);
+
+        return Inertia::render('Categories/Show', [
+            'category' => $category,
+        ]);
     }
 }

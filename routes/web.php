@@ -13,13 +13,14 @@ Route::inertia('/', 'Welcome')->name('home');
 
 // Rutas al público en general
 Route::name('public.')->group(function () {
-    Route::get('/libros',            [BookController::class, 'indexPage'])->name('books.index.page');
-    Route::get('/libros/{book}',     [BookController::class, 'showPage'])->name('books.show.page');
-    Route::get('/books/{book}',      [BookController::class, 'show'])->name('books.show');
-    Route::get('/books',             [BookController::class, 'index'])->name('books.index');
-    Route::get('/categorias',        [CategoryController::class, 'indexPage'])->name('categories.index.page');
-    Route::get('/categories',        [CategoryController::class, 'index'])->name('categories.index');
-    Route::get('/covers/{fileName}', CoverImageStreamController::class)->name('image');
+    Route::get('/libros',                   [BookController::class, 'indexPage'])->name('books.index.page');
+    Route::get('/libros/{book}',            [BookController::class, 'showPage'])->name('books.show.page');
+    Route::get('/books/{book}',             [BookController::class, 'show'])->name('books.show');
+    Route::get('/books',                    [BookController::class, 'index'])->name('books.index');
+    Route::get('/categorias',               [CategoryController::class, 'indexPage'])->name('categories.index.page');
+    Route::get('/categories',               [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('/categories/{category}',    [CategoryController::class, 'show'])->name('categories.show');
+    Route::get('/covers/{fileName}',        CoverImageStreamController::class)->name('image');
 });
 
 // Rutas de usuarios autenticados

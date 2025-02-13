@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import PrimaryButton from './PrimaryButton.vue';
+import { router } from '@inertiajs/vue3';
 
 const { category } = defineProps(['category'])
+
+const goToDetails = () => {
+    router.visit('/categories/' + category.id)
+}
 </script>
 
 <template>
@@ -17,7 +22,7 @@ const { category } = defineProps(['category'])
                 <h4 class="text-xl text-center font-bold mb-2">{{ category.name }}</h4>
             </div>
             <div class="text-center">
-                <PrimaryButton class="text-center">Ver detalles</PrimaryButton>
+                <PrimaryButton @click="goToDetails" class="text-center">Ver detalles</PrimaryButton>
             </div>
         </div>
     </div>

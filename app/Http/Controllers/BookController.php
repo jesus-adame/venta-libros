@@ -45,6 +45,11 @@ class BookController extends Controller
             $query->limit($limit);
         }
 
+        if ($request->input('category')) {
+            $category = $request->category;
+            $query->where('category_id', $category);
+        }
+
         $data = $query->orderByDesc('created_at')->get();
 
         return response()->json([
