@@ -6,12 +6,14 @@ import NumberInput from '@/Components/NumberInput.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Category } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
 import axios from 'axios';
 import { onMounted } from 'vue';
 import { ref } from 'vue';
 
 const { book } = defineProps(['book'])
+const categories = ref<Category[]>([])
 
 const form = ref<{
     name: string,
@@ -19,6 +21,7 @@ const form = ref<{
     description: string,
     price: number | null,
     image: File | null,
+    category_id: string,
     processing: boolean,
     _method: string
 }>({
@@ -27,6 +30,7 @@ const form = ref<{
     description: '',
     price: 0,
     image: null,
+    category_id: '',
     processing: false,
     _method: 'put'
 })
@@ -53,8 +57,16 @@ const onFileChanged = (file: File) => {
     form.value.image = file;
 }
 
+const fetchCategories = () => {
+    axios.get('/backoffice/categories')
+        .then(response => {
+            categories.value = response.data.data
+        })
+}
+
 onMounted(() => {
     form.value = { ...book, image: null, _method: 'put', processing: false }
+    fetchCategories()
 })
 </script>
 
@@ -99,6 +111,16 @@ onMounted(() => {
 
                         <NumberInput id="price" class="mt-1 block w-full" v-model="form.price" required autofocus
                             autocomplete="price" />
+
+                        <InputLabel for="price" value="Categoría" />
+                        <select v-model="form.category_id"
+                            class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <option value="">Elige una categoría</option>
+                            <option v-for="(category, index) in categories" :key="index"
+                                :value="category.id.toString()">
+                                {{ category.name }}
+                            </option>
+                        </select>
 
                         <div class="mt-1">
                             <InputLabel for="image" value="Portada" />

@@ -28,6 +28,7 @@ class UpdateBookRequest extends FormRequest
             'description' => ['required', 'string'],
             'price' => ['required', 'numeric'],
             'image' => ['nullable', 'file', 'image'],
+            'category_id' => ['nullable', 'numeric', 'exists:categories,id'],
         ];
     }
 }
