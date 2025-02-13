@@ -9,11 +9,7 @@ import TopBooks from '@/modules/books/TopBooks.vue';
     <GuestLayout>
 
         <Head title="Bienvenido" />
-
-        <div>
-            <MainBanner />
-        </div>
-
+        <MainBanner />
         <TopBooks />
     </GuestLayout>
 </template>

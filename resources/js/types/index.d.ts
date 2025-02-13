@@ -9,6 +9,13 @@ export interface Auth {
     user: User
 }
 
+export interface Book {
+    id: number
+    name: string
+    description: string
+    price: number
+}
+
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {

@@ -7,19 +7,23 @@ import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
 import axios from 'axios';
+import { onMounted } from 'vue';
 import { ref } from 'vue';
+
+const { book } = defineProps(['book'])
 
 const form = ref({
     name: '',
     description: '',
     price: 0,
-    processing: false
+    processing: false,
+    _method: 'put'
 })
 
 const errors = ref()
 
 const createBook = () => {
-    axios.post('/backoffice/books', form.value)
+    axios.post('/backoffice/books/' + book.id, form.value)
         .then(response => {
             router.visit('/backoffice/dashboard')
         })
@@ -28,6 +32,9 @@ const createBook = () => {
         })
 }
 
+onMounted(() => {
+    form.value = { ...form.value, ...book }
+})
 </script>
 
 <template>
@@ -37,9 +44,9 @@ const createBook = () => {
     <AuthenticatedLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Registar nuevo libro
+                {{ form.name }}
             </h2>
-            <p>Ingresas los datos del nuevo libro</p>
+            <p>Ingresas los nuevos datos del libro</p>
         </template>
 
         <MainContainer>
@@ -51,20 +58,17 @@ const createBook = () => {
                         <TextInput id="name" class="mt-1 block w-full" v-model="form.name" required autofocus
                             autocomplete="name" />
 
+
                         <InputLabel for="description" value="Descripción" />
 
                         <TextInput id="description" class="mt-1 block w-full" v-model="form.description" required
                             autofocus autocomplete="description" />
 
+
                         <InputLabel for="price" value="Precio" />
 
                         <NumberInput id="price" class="mt-1 block w-full" v-model="form.price" required autofocus
                             autocomplete="price" />
-
-                        <div class="mt-1">
-                            <InputLabel for="image" value="Portada" />
-                            <input type="file">
-                        </div>
 
                         <div v-if="errors" class="py-4 text-red-700">
                             {{ errors.message }}
@@ -72,7 +76,7 @@ const createBook = () => {
 
                         <PrimaryButton class="mt-4" :class="{ 'opacity-25': form.processing }"
                             :disabled="form.processing">
-                            Registrar
+                            Actualizar
                         </PrimaryButton>
                     </div>
                 </form>

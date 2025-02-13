@@ -3,13 +3,30 @@ import BackBookItem from '@/Components/BackBookItem.vue';
 import MainContainer from '@/Components/MainContainer.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Book } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
+import axios from 'axios';
+import { ref } from 'vue';
+import { onMounted } from 'vue';
 
 const { auth } = defineProps(['auth'])
 
+const books = ref<Book[]>([])
+
 const goToCreate = () => {
-    router.visit('/books/create')
+    router.visit('/backoffice/books/create')
 }
+
+const fetchBooks = () => {
+    axios.get('/backoffice/books')
+        .then(response => {
+            books.value = response.data.data
+        })
+}
+
+onMounted(() => {
+    fetchBooks()
+})
 </script>
 
 <template>
@@ -36,8 +53,11 @@ const goToCreate = () => {
                 <div>
                     <PrimaryButton @click="goToCreate">Registrar nuevo libro</PrimaryButton>
                 </div>
-                <div class="grid grid-cols-4">
-                    <BackBookItem />
+                <div v-if="books.length <= 0">
+                    <p>No hay libros registrados</p>
+                </div>
+                <div class="grid grid-cols-4 gap-4">
+                    <BackBookItem v-for="(book, index) in books" :key="index" :book="book" @deleted="fetchBooks" />
                 </div>
             </div>
         </MainContainer>

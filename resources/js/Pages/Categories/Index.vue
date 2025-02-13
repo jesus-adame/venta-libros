@@ -13,7 +13,7 @@ import CategoryItem from '@/Components/CategoryItem.vue';
         <MainContainer>
             <h1 class="text-2xl font-bold uppercase py-6">Categorías</h1>
 
-            <div class="mb-12 grid grid-cols-3 gap-6">
+            <div class="mb-12 grid md:grid-cols-3 gap-6">
                 <CategoryItem />
                 <CategoryItem />
                 <CategoryItem />

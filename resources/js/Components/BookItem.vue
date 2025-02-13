@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import PrimaryButton from './PrimaryButton.vue';
 
+const { book } = defineProps(['book'])
 </script>
 
 <template>
@@ -10,13 +11,11 @@ import PrimaryButton from './PrimaryButton.vue';
         </div>
         <div class="h-48 pt-4 flex flex-col justify-between gap-4">
             <div>
-                <h4 class="text-xl font-bold mb-2">Harry Potter</h4>
+                <h4 class="text-xl font-bold mb-2">{{ book.name }}</h4>
                 <p class="text-wrap truncate max-h-24">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur reiciendis voluptatibus
-                    corporis doloribus labore dignissimos laborum veniam, cumque deserunt reprehenderit
-                    temporibus,
-                    veritatis facilis laboriosam dolore illo quos! Earum, doloribus quia.
+                    {{ book.description }}
                 </p>
+                <span>${{ book.price }}</span>
             </div>
             <div class="text-center">
                 <PrimaryButton class="text-center">Ver detalles</PrimaryButton>

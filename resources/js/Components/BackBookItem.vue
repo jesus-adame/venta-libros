@@ -1,7 +1,38 @@
 <script setup lang="ts">
+import { Book } from '@/types';
 import DangerButton from './DangerButton.vue';
 import SecondaryButton from './SecondaryButton.vue';
+import Modal from './Modal.vue';
+import { ref } from 'vue';
+import axios from 'axios';
+import { router } from '@inertiajs/vue3';
 
+const { book } = defineProps<{
+    book: Book
+}>()
+
+const emit = defineEmits(['deleted'])
+const confirmingBookDeletion = ref(false);
+
+const confirmBookDeletion = () => {
+    confirmingBookDeletion.value = true;
+}
+
+const closeModal = () => {
+    confirmingBookDeletion.value = false;
+};
+
+const deleteBook = () => {
+    axios.post('/backoffice/books/' + book.id, { _method: 'delete' })
+        .then(response => {
+            closeModal()
+            emit('deleted')
+        })
+};
+
+const gotToEdit = () => {
+    router.visit('/backoffice/books/' + book.id + '/edit')
+}
 </script>
 
 <template>
@@ -11,18 +42,33 @@ import SecondaryButton from './SecondaryButton.vue';
         </div>
         <div class="h-48 pt-4 flex flex-col justify-between gap-4">
             <div>
-                <h4 class="text-xl font-bold mb-2">Harry Potter</h4>
+                <h4 class="text-xl font-bold mb-2">{{ book.name }}</h4>
                 <p class="text-wrap truncate max-h-24">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur reiciendis voluptatibus
-                    corporis doloribus labore dignissimos laborum veniam, cumque deserunt reprehenderit
-                    temporibus,
-                    veritatis facilis laboriosam dolore illo quos! Earum, doloribus quia.
+                    {{ book.description }}
                 </p>
+                <span>${{ book.price }}</span>
             </div>
             <div class="flex flex-wrap gap-2">
-                <SecondaryButton class="text-center">Editar</SecondaryButton>
-                <DangerButton class="text-center">Eliminar</DangerButton>
+                <SecondaryButton @click="gotToEdit" class="text-center">Editar</SecondaryButton>
+                <DangerButton @click="confirmBookDeletion" class="text-center">Eliminar</DangerButton>
             </div>
         </div>
     </div>
+    <Modal :show="confirmingBookDeletion" @close="closeModal" maxWidth="sm">
+        <div class="p-6">
+            <h2 class="text-lg font-medium text-gray-900 text-center">
+                ¿Está seguro de eliminar el libro?
+            </h2>
+
+            <div class="mt-6 flex justify-end">
+                <SecondaryButton @click="closeModal">
+                    Cancelar
+                </SecondaryButton>
+
+                <DangerButton class="ms-3" @click="deleteBook">
+                    Eliminar
+                </DangerButton>
+            </div>
+        </div>
+    </Modal>
 </template>
