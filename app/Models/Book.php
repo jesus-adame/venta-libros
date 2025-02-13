@@ -10,5 +10,6 @@ class Book extends Model
         'name',
         'description',
         'price',
+        'image',
     ];
 }
