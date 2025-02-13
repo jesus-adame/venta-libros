@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backoffice;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -45,6 +46,15 @@ class CategoryController extends Controller
 
         $category = new Category($request->only('name'));
         $category->slug = Str::slug($request->input('name'));
+
+        if ($request->file('image')) {
+            /** @var UploadedFile */
+            $image = $request->file('image');
+
+            $storedImage = Storage::put('covers', $image);
+
+            $category->image = $storedImage;
+        }
 
         $category->save();
 

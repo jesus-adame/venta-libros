@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import FileInput from '@/Components/FileInput.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import MainContainer from '@/Components/MainContainer.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -10,9 +11,11 @@ import { ref } from 'vue';
 
 const form = ref<{
     name: string,
+    image: File | null,
     processing: boolean
 }>({
     name: '',
+    image: null,
     processing: false
 })
 
@@ -32,6 +35,10 @@ const createBook = () => {
         .catch(error => {
             errors.value = error.response.data
         })
+}
+
+const onFileChanged = (file: File) => {
+    form.value.image = file;
 }
 
 </script>
@@ -56,6 +63,11 @@ const createBook = () => {
 
                         <TextInput id="name" class="mt-1 block w-full" v-model="form.name" required autofocus
                             autocomplete="name" />
+
+                        <div class="mt-1">
+                            <InputLabel for="image" value="Imagen" />
+                            <FileInput @change="onFileChanged"></FileInput>
+                        </div>
 
                         <div v-if="errors" class="py-4 text-red-700">
                             {{ errors.message }}
