@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import BackCategoryItem from '@/Components/BackCategoryItem.vue';
+import BackUserItem from '@/Components/BackUserItem.vue';
 import MainContainer from '@/Components/MainContainer.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Category } from '@/types';
+import { User } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
 import axios from 'axios';
 import { ref } from 'vue';
 import { onMounted } from 'vue';
 
-const categories = ref<Category[]>([])
+const users = ref<User[]>([])
 
 const goToCreate = () => {
-    router.visit('/backoffice/categories/create')
+    router.visit('/backoffice/users/create')
 }
 
 const fetchCategories = () => {
-    axios.get('/backoffice/categories')
+    axios.get('/backoffice/users')
         .then(response => {
-            categories.value = response.data.data
+            users.value = response.data.data
         })
 }
 
@@ -29,26 +29,25 @@ onMounted(() => {
 
 <template>
 
-    <Head title="Categorías" />
+    <Head title="Usuarios" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Categorías
+                Usuarios
             </h2>
         </template>
 
         <MainContainer>
             <div class="py-6 grid gap-6">
                 <div>
-                    <PrimaryButton @click="goToCreate">Registrar nueva categoría</PrimaryButton>
+                    <PrimaryButton @click="goToCreate">Registrar nuevo usuario</PrimaryButton>
                 </div>
-                <div v-if="categories.length <= 0">
-                    <p>No hay categorías registradas</p>
+                <div v-if="users.length <= 0">
+                    <p>No hay usuarios registrados</p>
                 </div>
-                <div class="grid md:grid-cols-4 gap-4">
-                    <BackCategoryItem v-for="(category, index) in categories" :key="index" :category="category"
-                        @deleted="fetchCategories" />
+                <div class="grid md:grid-cols-2 gap-4">
+                    <BackUserItem v-for="(user, index) in users" :key="index" :user="user" @deleted="fetchCategories" />
                 </div>
             </div>
         </MainContainer>

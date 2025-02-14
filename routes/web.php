@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Backoffice\BookController as BackofficeBookController;
 use App\Http\Controllers\Backoffice\CategoryController as BackofficeCategoryController;
+use App\Http\Controllers\Backoffice\RoleController;
+use App\Http\Controllers\Backoffice\UserController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CoverImageStreamController;
@@ -32,7 +34,7 @@ Route::middleware('auth')->group(function () {
 
 // Rutas del backoffice
 Route::middleware('auth')->name('backoffice.')->prefix('backoffice')->group(function () {
-    Route::get('/dashboard',         [BackofficeBookController::class, 'indexPage'])->name('dashboard');
+    Route::get('/books-list',        [BackofficeBookController::class, 'indexPage'])->name('dashboard');
     Route::get('/books',             [BackofficeBookController::class, 'index'])->name('books.index');
     Route::get('/books/create',      [BackofficeBookController::class, 'create'])->name('books.create');
     Route::post('/books',            [BackofficeBookController::class, 'store'])->name('books.store');
@@ -47,6 +49,22 @@ Route::middleware('auth')->name('backoffice.')->prefix('backoffice')->group(func
     Route::get('/categories/{book}/edit', [BackofficeCategoryController::class, 'edit'])->name('categories.edit');
     Route::put('/categories/{book}',      [BackofficeCategoryController::class, 'update'])->name('categories.update');
     Route::delete('/categories/{book}',   [BackofficeCategoryController::class, 'destroy'])->name('categories.destroy');
+
+    Route::middleware('admin')->group(function () {
+        Route::get('/users-list',        [UserController::class, 'indexPage'])->name('users.index.page');
+        Route::get('/users',             [UserController::class, 'index'])->name('users.index');
+        Route::get('/users/create',      [UserController::class, 'create'])->name('users.create');
+        Route::post('/users',            [UserController::class, 'store'])->name('users.store');
+        Route::get('/users/{book}/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::put('/users/{book}',      [UserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{book}',   [UserController::class, 'destroy'])->name('users.destroy');
+
+        Route::get('/roles-list',        [RoleController::class, 'indexPage'])->name('roles.index.page');
+        Route::get('/roles',             [RoleController::class, 'index'])->name('roles.index');
+        Route::get('/roles/create',      [RoleController::class, 'create'])->name('roles.create');
+        Route::post('/roles',            [RoleController::class, 'store'])->name('roles.store');
+        Route::delete('/roles/{book}',   [RoleController::class, 'destroy'])->name('roles.destroy');
+    });
 });
 
 // Rutas de inicio de sesión

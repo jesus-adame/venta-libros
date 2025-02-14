@@ -46,7 +46,7 @@ const errors = ref()
 const createBook = () => {
     axios.post('/backoffice/books/' + book.id, form.value, requestOptions)
         .then(response => {
-            router.visit('/backoffice/dashboard')
+            router.visit('/backoffice/books-list')
         })
         .catch(error => {
             errors.value = error.response.data
@@ -72,7 +72,7 @@ onMounted(() => {
 
 <template>
 
-    <Head title="Dashboard" />
+    <Head :title="book.name" />
 
     <AuthenticatedLayout>
         <template #header>

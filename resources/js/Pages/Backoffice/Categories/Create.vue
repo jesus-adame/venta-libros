@@ -27,7 +27,7 @@ const requestOptions = {
 
 const errors = ref()
 
-const createBook = () => {
+const createCategory = () => {
     axios.post('/backoffice/categories', form.value, requestOptions)
         .then(response => {
             router.visit('/backoffice/categories-list')
@@ -45,7 +45,7 @@ const onFileChanged = (file: File) => {
 
 <template>
 
-    <Head title="Dashboard" />
+    <Head title="Nueva categoría" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -57,7 +57,7 @@ const onFileChanged = (file: File) => {
 
         <MainContainer>
             <div class="py-6 grid gap-6">
-                <form class="md:w-1/2" @submit.prevent="createBook">
+                <form class="md:w-1/2" @submit.prevent="createCategory">
                     <div>
                         <InputLabel for="name" value="Nombre" />
 

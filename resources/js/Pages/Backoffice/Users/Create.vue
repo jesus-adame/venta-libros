@@ -2,29 +2,32 @@
 import FileInput from '@/Components/FileInput.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import MainContainer from '@/Components/MainContainer.vue';
-import NumberInput from '@/Components/NumberInput.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
 import axios from 'axios';
 import { ref } from 'vue';
+import { Role } from '@/types';
+import { onMounted } from 'vue';
 
 const form = ref<{
     name: string,
-    author: string,
-    description: string,
-    price: number | null,
+    email: string,
+    password: string,
+    role_id: string,
     image: File | null,
     processing: boolean
 }>({
     name: '',
-    author: '',
-    description: '',
-    price: 0,
+    email: '',
+    password: '',
+    role_id: '',
     image: null,
     processing: false
 })
+
+const roles = ref<Role[]>([])
 
 const requestOptions = {
     headers: {
@@ -34,62 +37,67 @@ const requestOptions = {
 
 const errors = ref()
 
-const createBook = () => {
-    axios.post('/backoffice/books', form.value, requestOptions)
+const createUser = () => {
+    axios.post('/backoffice/users', form.value, requestOptions)
         .then(response => {
-            router.visit('/backoffice/books-list')
+            router.visit('/backoffice/users-list')
         })
         .catch(error => {
             errors.value = error.response.data
         })
 }
 
-const onFileChanged = (file: File) => {
-    form.value.image = file;
+const fetchRoles = () => {
+    axios.get('/backoffice/roles')
+        .then(response => {
+            roles.value = response.data.data
+        })
 }
 
+onMounted(() => {
+    fetchRoles()
+})
 </script>
 
 <template>
 
-    <Head title="Libros" />
+    <Head title="Nuevo usuario" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Registar nuevo libro
+                Registar nuevo usuario
             </h2>
-            <p>Ingresas los datos del nuevo libro</p>
+            <p>Ingresas los datos del nuevo usuario</p>
         </template>
 
         <MainContainer>
             <div class="py-6 grid gap-6">
-                <form class="md:w-1/2" @submit.prevent="createBook">
+                <form class="md:w-1/2" @submit.prevent="createUser">
                     <div>
                         <InputLabel for="name" value="Nombre" />
 
                         <TextInput id="name" class="mt-1 block w-full" v-model="form.name" required autofocus
                             autocomplete="name" />
 
-                        <InputLabel for="author" value="Autor" />
+                        <InputLabel for="email" value="Email" />
 
-                        <TextInput id="author" class="mt-1 block w-full" v-model="form.author" required autofocus
-                            autocomplete="author" />
+                        <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required
+                            autofocus autocomplete="email" />
 
-                        <InputLabel for="description" value="Descripción" />
+                        <InputLabel for="password" value="Contraseña" />
 
-                        <TextInput id="description" class="mt-1 block w-full" v-model="form.description" required
-                            autofocus autocomplete="description" />
+                        <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password"
+                            required autocomplete="new-password" />
 
-                        <InputLabel for="price" value="Precio" />
-
-                        <NumberInput id="price" class="mt-1 block w-full" v-model="form.price" required autofocus
-                            autocomplete="price" />
-
-                        <div class="mt-1">
-                            <InputLabel for="image" value="Portada" />
-                            <FileInput @change="onFileChanged"></FileInput>
-                        </div>
+                        <InputLabel for="role" value="Rol" />
+                        <select v-model="form.role_id"
+                            class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 w-full">
+                            <option value="">Elige un rol</option>
+                            <option v-for="(role, index) in roles" :key="index" :value="role.id.toString()">
+                                {{ role.name }}
+                            </option>
+                        </select>
 
                         <div v-if="errors" class="py-4 text-red-700">
                             {{ errors.message }}

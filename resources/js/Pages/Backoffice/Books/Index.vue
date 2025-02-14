@@ -31,7 +31,7 @@ onMounted(() => {
 
 <template>
 
-    <Head title="Dashboard" />
+    <Head title="Libros" />
 
     <AuthenticatedLayout>
         <template #header>

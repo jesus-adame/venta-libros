@@ -17,7 +17,7 @@ import { Link } from '@inertiajs/vue3';
                 </div>
                 <div v-else
                     class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                    <Link href="/backoffice/dashboard" class="block px-4 py-2 text-sm text-gray-50" role="menuitem"
+                    <Link href="/backoffice/books-list" class="block px-4 py-2 text-sm text-gray-50" role="menuitem"
                         tabindex="-1" id="user-menu-item-1">Mis libros</Link>
                 </div>
             </div>

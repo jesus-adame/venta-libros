@@ -3,6 +3,8 @@ export interface User {
     name: string;
     email: string;
     email_verified_at?: string;
+    role_id: number;
+    role: Role;
 }
 
 export interface Auth {
@@ -21,6 +23,12 @@ export interface Book {
 }
 
 export interface Category {
+    id: number
+    name: string
+    slug: string
+}
+
+export interface Role {
     id: number
     name: string
     slug: string

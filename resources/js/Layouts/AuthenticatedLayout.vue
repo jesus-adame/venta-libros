@@ -4,6 +4,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import { isAdmin } from '@/helpers/accessUtil';
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -33,6 +34,10 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('backoffice.categories.index.page')"
                                     :active="route().current('backoffice.categories.index.page')">
                                     Categorías
+                                </NavLink>
+                                <NavLink v-if="isAdmin($page.props.auth)" :href="route('backoffice.users.index.page')"
+                                    :active="route().current('backoffice.users.index.page')">
+                                    Usuarios
                                 </NavLink>
                             </div>
                         </div>
@@ -111,6 +116,10 @@ const showingNavigationDropdown = ref(false);
                         <ResponsiveNavLink :href="route('backoffice.categories.index.page')"
                             :active="route().current('backoffice.categories.index.page')">
                             Categorías
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('backoffice.users.index.page')"
+                            :active="route().current('backoffice.users.index.page')">
+                            Usuarios
                         </ResponsiveNavLink>
                     </div>
 

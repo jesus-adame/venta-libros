@@ -9,46 +9,53 @@ import axios from 'axios';
 import { ref } from 'vue';
 import { onMounted } from 'vue';
 
-const categories = ref<Category[]>([])
+const roles = ref<Category[]>([])
 
 const goToCreate = () => {
-    router.visit('/backoffice/categories/create')
+    router.visit('/backoffice/roles/create')
 }
 
-const fetchCategories = () => {
-    axios.get('/backoffice/categories')
+const fetchRoles = () => {
+    axios.get('/backoffice/roles')
         .then(response => {
-            categories.value = response.data.data
+            roles.value = response.data.data
         })
 }
 
 onMounted(() => {
-    fetchCategories()
+    fetchRoles()
 })
 </script>
 
 <template>
 
-    <Head title="Categorías" />
+    <Head title="Roles" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Categorías
+                Roles
             </h2>
         </template>
 
         <MainContainer>
             <div class="py-6 grid gap-6">
-                <div>
-                    <PrimaryButton @click="goToCreate">Registrar nueva categoría</PrimaryButton>
+                <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900">
+                        <p>
+                            Estos son los roles que tienes registrados
+                        </p>
+                    </div>
                 </div>
-                <div v-if="categories.length <= 0">
-                    <p>No hay categorías registradas</p>
+                <div>
+                    <PrimaryButton @click="goToCreate">Registrar nuevo rol</PrimaryButton>
+                </div>
+                <div v-if="roles.length <= 0">
+                    <p>No hay roles registrados</p>
                 </div>
                 <div class="grid md:grid-cols-4 gap-4">
-                    <BackCategoryItem v-for="(category, index) in categories" :key="index" :category="category"
-                        @deleted="fetchCategories" />
+                    <BackCategoryItem v-for="(category, index) in roles" :key="index" :category="category"
+                        @deleted="fetchRoles" />
                 </div>
             </div>
         </MainContainer>

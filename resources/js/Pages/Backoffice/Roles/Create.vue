@@ -2,7 +2,6 @@
 import FileInput from '@/Components/FileInput.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import MainContainer from '@/Components/MainContainer.vue';
-import NumberInput from '@/Components/NumberInput.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
@@ -12,16 +11,10 @@ import { ref } from 'vue';
 
 const form = ref<{
     name: string,
-    author: string,
-    description: string,
-    price: number | null,
     image: File | null,
     processing: boolean
 }>({
     name: '',
-    author: '',
-    description: '',
-    price: 0,
     image: null,
     processing: false
 })
@@ -34,10 +27,10 @@ const requestOptions = {
 
 const errors = ref()
 
-const createBook = () => {
-    axios.post('/backoffice/books', form.value, requestOptions)
+const createRole = () => {
+    axios.post('/backoffice/roles', form.value, requestOptions)
         .then(response => {
-            router.visit('/backoffice/books-list')
+            router.visit('/backoffice/roles-list')
         })
         .catch(error => {
             errors.value = error.response.data
@@ -52,42 +45,27 @@ const onFileChanged = (file: File) => {
 
 <template>
 
-    <Head title="Libros" />
+    <Head title="Nuevo rol" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Registar nuevo libro
+                Registar nuevo rol
             </h2>
-            <p>Ingresas los datos del nuevo libro</p>
+            <p>Ingresar nombre del nuevo rol</p>
         </template>
 
         <MainContainer>
             <div class="py-6 grid gap-6">
-                <form class="md:w-1/2" @submit.prevent="createBook">
+                <form class="md:w-1/2" @submit.prevent="createRole">
                     <div>
                         <InputLabel for="name" value="Nombre" />
 
                         <TextInput id="name" class="mt-1 block w-full" v-model="form.name" required autofocus
                             autocomplete="name" />
 
-                        <InputLabel for="author" value="Autor" />
-
-                        <TextInput id="author" class="mt-1 block w-full" v-model="form.author" required autofocus
-                            autocomplete="author" />
-
-                        <InputLabel for="description" value="Descripción" />
-
-                        <TextInput id="description" class="mt-1 block w-full" v-model="form.description" required
-                            autofocus autocomplete="description" />
-
-                        <InputLabel for="price" value="Precio" />
-
-                        <NumberInput id="price" class="mt-1 block w-full" v-model="form.price" required autofocus
-                            autocomplete="price" />
-
                         <div class="mt-1">
-                            <InputLabel for="image" value="Portada" />
+                            <InputLabel for="image" value="Imagen" />
                             <FileInput @change="onFileChanged"></FileInput>
                         </div>
 

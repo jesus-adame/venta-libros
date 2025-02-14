@@ -21,7 +21,7 @@ onMounted(() => {
 <template>
     <GuestLayout>
 
-        <Head title="Libros" />
+        <Head :title="book?.name" />
 
         <MainContainer>
             <div class="grid md:grid-cols-2 my-2 py-4 gap-5">
