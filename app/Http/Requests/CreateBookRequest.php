@@ -22,9 +22,9 @@ class CreateBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'unique:books,name'],
-            'author' => ['required', 'string'],
-            'description' => ['required', 'string'],
+            'name' => ['required', 'string', 'unique:books,name', 'max:200'],
+            'author' => ['required', 'string', 'max:200'],
+            'description' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric'],
             'image' => ['nullable', 'file', 'image'],
         ];

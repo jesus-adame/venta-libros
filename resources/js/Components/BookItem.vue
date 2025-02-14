@@ -13,7 +13,7 @@ const goToDetails = () => {
 <template>
     <div class="bg-white p-6 rounded-lg border">
         <div class="h-44 overflow-hidden">
-            <img v-if="book.image" :src="'/' + book.image" :alt="book.name">
+            <img v-if="book.image" :src="'/' + book.image" :alt="book.name" class="mx-auto">
             <div v-else class="flex items-center justify-center border h-full bg-gray-100 text-gray-600">
                 <p>No hay imagen</p>
             </div>

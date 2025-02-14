@@ -33,7 +33,7 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => User::with('role')->where('id', $request->user()->id)->first(),
+                'user' => User::with('role')->where('id', $request->user()?->id)->first(),
             ],
         ];
     }
