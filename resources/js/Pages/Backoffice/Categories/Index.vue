@@ -53,7 +53,7 @@ onMounted(() => {
                 <div v-if="categories.length <= 0">
                     <p>No hay categorías registradas</p>
                 </div>
-                <div class="grid grid-cols-4 gap-4">
+                <div class="grid md:grid-cols-4 gap-4">
                     <BackCategoryItem v-for="(category, index) in categories" :key="index" :category="category"
                         @deleted="fetchCategories" />
                 </div>

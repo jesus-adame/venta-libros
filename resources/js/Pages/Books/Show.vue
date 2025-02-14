@@ -27,7 +27,7 @@ onMounted(() => {
             <div class="grid md:grid-cols-2 my-2 py-4 gap-5">
                 <div class="flex justify-center">
                     <img v-if="book?.image" class="md:w-1/2" :src="'/' + book?.image" :alt="book?.name">
-                    <div
+                    <div v-else
                         class="bg-gray-200 rounded text-gray-600 border flex justify-center items-center h-full w-full">
                         <p class="text-center">No hay imagen</p>
                     </div>

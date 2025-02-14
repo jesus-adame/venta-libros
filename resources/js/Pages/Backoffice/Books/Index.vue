@@ -56,7 +56,7 @@ onMounted(() => {
                 <div v-if="books.length <= 0">
                     <p>No hay libros registrados</p>
                 </div>
-                <div class="grid grid-cols-4 gap-4">
+                <div class="grid md:grid-cols-4 gap-4">
                     <BackBookItem v-for="(book, index) in books" :key="index" :book="book" @deleted="fetchBooks" />
                 </div>
             </div>

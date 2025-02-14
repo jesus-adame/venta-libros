@@ -34,9 +34,6 @@ const showingNavigationDropdown = ref(false);
                                     :active="route().current('backoffice.categories.index.page')">
                                     Categorías
                                 </NavLink>
-                                <NavLink :href="route('home')" :active="route().current('home')">
-                                    Ir al home
-                                </NavLink>
                             </div>
                         </div>
 
@@ -61,6 +58,9 @@ const showingNavigationDropdown = ref(false);
                                     </template>
 
                                     <template #content>
+                                        <DropdownLink :href="route('home')">
+                                            Ir al sitio web
+                                        </DropdownLink>
                                         <DropdownLink :href="route('profile.edit')">
                                             Perfil
                                         </DropdownLink>
@@ -106,7 +106,11 @@ const showingNavigationDropdown = ref(false);
                     <div class="space-y-1 pb-3 pt-2">
                         <ResponsiveNavLink :href="route('backoffice.dashboard')"
                             :active="route().current('backoffice.dashboard')">
-                            Dashboard
+                            Mis libros
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('backoffice.categories.index.page')"
+                            :active="route().current('backoffice.categories.index.page')">
+                            Categorías
                         </ResponsiveNavLink>
                     </div>
 
@@ -122,11 +126,14 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <div class="mt-3 space-y-1">
+                            <ResponsiveNavLink :href="route('home')">
+                                Ir al sitio web
+                            </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('profile.edit')">
-                                Profile
+                                Perfil
                             </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                                Log Out
+                                Cerrar sesión
                             </ResponsiveNavLink>
                         </div>
                     </div>

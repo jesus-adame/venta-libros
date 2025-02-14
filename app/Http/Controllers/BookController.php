@@ -56,22 +56,4 @@ class BookController extends Controller
             'data' => $data,
         ]);
     }
-
-    private function unslugify(string $slug)
-    {
-        $slug = str_replace('-', ' ', $slug);
-
-        // Reemplazo manual de caracteres comunes que fueron removidos
-        $replacements = [
-            'senor' => 'señor',
-            'anio' => 'año',
-            'pokemon' => 'pokémon',
-            'habitos' => 'hábitos',
-            'atomicos' => 'atómicos',
-        ];
-
-        $text = strtr($slug, $replacements);
-
-        return ucwords($text);
-    }
 }
